@@ -1,0 +1,25 @@
+class Solution {
+public:
+
+    int binSearch(vector<int>& nums, int t,int st,int end){
+        if(st <= end){
+            int mid=st+(end-st)/2;
+            if(nums[mid] == t){
+                return mid;
+            }
+            else if(nums[mid] > t){
+                return binSearch(nums,t,st,mid-1);
+            }
+            else{
+                return binSearch(nums,t,mid+1,end);
+            }
+        }
+        return -1;
+    }
+
+    int search(vector<int>& nums, int t) {
+        int st=0,end=nums.size()-1;
+
+        return binSearch(nums,t,st,end);
+    }
+};

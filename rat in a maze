@@ -1,13 +1,13 @@
 class Solution {
   public:
-    void getAns(vector<vector<int>>& maze,int row,int col,string path,vector<string>& ans,vector<vector<bool>>& visited){
+    void getAns(vector<vector<int>>& maze,int row,int col,string path,vector<string>& ans){
         int n=maze.size();
         
         if(row < 0 || col <0 || row >=n || col >= n){
             return ;
         }
         
-        if( maze[row][col] == 0 || visited[row][col] == true){
+        if( maze[row][col] == 0 || maze[row][col] == -1){
             return ;
         }
         
@@ -16,23 +16,27 @@ class Solution {
             return ;
         }
         
-        visited[row][col] = true;
+        maze[row][col] = -1;
         
-        getAns(maze,row-1,col,path+"U",ans,visited);//up
-        getAns(maze,row+1,col,path+"D",ans,visited);//down
-        getAns(maze,row,col-1,path+"L",ans,visited);//left
-        getAns(maze,row,col+1,path+"R",ans,visited);//right
+        getAns(maze,row-1,col,path+"U",ans);
+        getAns(maze,row+1,col,path+"D",ans);
+        getAns(maze,row,col-1,path+"L",ans);
+        getAns(maze,row,col+1,path+"R",ans);
         
-        visited[row][col] = false;
+        maze[row][col] = 1;
     }
+    
     vector<string> ratInMaze(vector<vector<int>>& maze) {
-        // code here
         int n=maze.size();
         vector<string> ans;
-        vector<vector<bool>> visited(n,vector<bool>(n,false));
-        string path = "";
         
-        getAns(maze,0,0,path,ans,visited);
+        if(maze[0][0] == 0){
+            return ans;
+        }
+        
+        getAns(maze,0,0,"",ans);
+        
+        sort(ans.begin(),ans.end());
         
         return ans;
     }

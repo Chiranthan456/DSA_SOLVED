@@ -1,0 +1,39 @@
+class Solution {
+  public:
+    void getAns(vector<vector<int>>& maze,int row,int col,string path,vector<string>& ans,vector<vector<bool>>& visited){
+        int n=maze.size();
+        
+        if(row < 0 || col <0 || row >=n || col >= n){
+            return ;
+        }
+        
+        if( maze[row][col] == 0 || visited[row][col] == true){
+            return ;
+        }
+        
+        if(row == n-1 && col == n-1){
+            ans.push_back(path);
+            return ;
+        }
+        
+        visited[row][col] = true;
+        
+        getAns(maze,row-1,col,path+"U",ans,visited);//up
+        getAns(maze,row+1,col,path+"D",ans,visited);//down
+        getAns(maze,row,col-1,path+"L",ans,visited);//left
+        getAns(maze,row,col+1,path+"R",ans,visited);//right
+        
+        visited[row][col] = false;
+    }
+    vector<string> ratInMaze(vector<vector<int>>& maze) {
+        // code here
+        int n=maze.size();
+        vector<string> ans;
+        vector<vector<bool>> visited(n,vector<bool>(n,false));
+        string path = "";
+        
+        getAns(maze,0,0,path,ans,visited);
+        
+        return ans;
+    }
+};

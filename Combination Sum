@@ -1,0 +1,33 @@
+class Solution {
+public:
+    set<vector<int>>s;
+    void comSum(vector<int>& arr,int i,vector<int>& com,vector<vector<int>>& ans,int target){
+        int n=arr.size();
+        if(target < 0 || i == n ){
+            return;
+        }
+        
+        if(target == 0){
+            if(s.find(com) == s.end()){
+                ans.push_back({com});
+                s.insert(com);
+            }
+            return;
+        }
+        
+        com.push_back(arr[i]);
+        comSum(arr,i+1,com,ans,target-arr[i]);
+        comSum(arr,i,com,ans,target-arr[i]);
+
+        com.pop_back();
+        comSum(arr,i+1,com,ans,target);
+    }
+    vector<vector<int>> combinationSum(vector<int>& arr, int target) {
+        vector<vector<int>> ans;
+        vector<int>com;
+
+        comSum(arr,0,com,ans,target);
+
+        return ans;
+    }
+};

@@ -1,0 +1,19 @@
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        vector<int> Freq1(26,0);
+        vector<int> Freq2(26,0);
+        int k=0;
+        for(int i=0;i<s.size();i++){
+            Freq1[s[i]-'a']++;
+        }
+        for(int i=0;i<t.size();i++){
+            Freq2[t[i]-'a']++;
+        }
+
+        if(Freq1 == Freq2){
+            return true;
+        }
+        return false;
+    }
+};

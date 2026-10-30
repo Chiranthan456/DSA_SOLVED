@@ -1,0 +1,15 @@
+class Solution {
+public:
+    int reverseBits(int n) {
+        string bitn = std::bitset<32>(n).to_string();
+        int left=0,right=bitn.size()-1;
+        while(left < right){
+            swap(bitn[left],bitn[right]);
+            left++;
+            right--;
+        }
+
+        long long revbitn = std::stoi(bitn,nullptr,2);
+        return revbitn;
+    }
+};
